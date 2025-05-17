@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Task Manager - All Tasks</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
+<h1>Task List</h1>
 
+<form method="get" action="#" th:action="@{/tasks}">
+    <label>Filter by Status:</label>
+    <select name="status">
+        <option value="">All</option>
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<a href="#" th:href="@{/tasks/new}">+ Create New Task</a>
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.title}">Title</td>
+        <td th:text="${task.description}">Description</td>
+        <td th:text="${task.dueDate}">2024-05-17</td>
+        <td th:text="${task.status}">Pending</td>
+        <td>
+            <a th:href="@{/tasks/edit/{id}(id=${task.id})}">Edit</a> |
+            <a th:href="@{/tasks/delete/{id}(id=${task.id})}" onclick="return confirm('Delete this task?')">Delete</a>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
