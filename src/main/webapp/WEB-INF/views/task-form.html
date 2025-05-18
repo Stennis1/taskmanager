@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create / Edit Task</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1 th:text="${task.id} == null ? 'Create Task' : 'Edit Task'">Form</h1>
+
+<form th:action="@{/tasks/save}" method="post" th:object="${task}">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" required/><br/>
+
+    <label>Description:</label>
+    <textarea th:field="*{description}"></textarea><br/>
+
+    <label>Due Date:</label>
+    <input type="date" th:field="*{dueDate}" required/><br/>
+
+    <label>Status:</label>
+    <select th:field="*{status}">
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+    </select><br/>
+
+    <button type="submit">Save</button>
+</form>
+
+<a href="#" th:href="@{/tasks}">Back to List</a>
+</body>
+</html>
